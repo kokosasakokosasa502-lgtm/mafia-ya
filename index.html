@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إخواتي الأبطال 👑</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+        const CONFIG = {
+      /* --- كلمة السر --- */
+      password: "123",
+
+      /* --- اسم العصابة / الشلة --- */
+      partnerName: "أحـلـى إخـوات فـي الـدنـيـا 👑",
+
+      /* --- نص صفحة كلمة السر --- */
+      lockedTitle:   "جـاهـزيـن؟ 🔥 🤔",
+      lockedSubtitle: "⚡ السر ده وموقعنا ده مش هيشوفه غير إخواتي السند اللي واثق فيهم طول العمر",
+      unlockButton:  "ادخل بسرعة وشوف المفاجأة 🦅 🤜🤛",
+
+      /* --- تاريخ بداية اللمة (YYYY-MM-DD) --- */
+      anniversaryDate: "9999-01-01",
+      anniversaryLabel: "بقالنا مع بعض وعمرنا سوا 🦅",
+      anniversaryMessage: "من يومنا فرقة واحدة ومبنقلقش من حد 👑",
+
+      /* --- عبارات ومقولات المهرجان والجدعنة --- */
+      loveMsg1: "احنا فرقة ومن يومنا أبطال 🔥",
+      loveMsg2: "كتف في كتف وقت الشدة سدّادين 💪",
+      loveMsg3: "الضمير صاحي والقلب حي ⚡",
+      loveMsg3Hidden: "ومفيش واحد فينا خاين يا زمايلي.. كلو رجولة! 🤜🤛", 
+
+      /* --- الكويز السريع --- */
+      quizTitle: "اختر مبدأ من مبادئ الفرقة 👇",
+      quizOptions: [
+        { text: "احنا فرقة",   reply: "ومبنقلقش من حد يا زميلي 🦅"   },
+        { text: "الرجولية", reply: "مبدأ ومبنغيروش مهما حصل 🤜"           },
+        { text: "وقت الشدة",  reply: "سد سد والضهر دايماً مسنود 💪"          },
+        { text: "اللمة الحلوة",  reply: "تساوي الدنيا دي كلها بملوكها 👑"             }
+      ],
+
+      /* 💡 تم تعديل المسارات هنا لتصبح مباشرة بدون اسم الفولدر */
+      photos: [
+        { src: "photo1.jpg", caption: "رئيس عصابة المشاكل والمشاغب اللي بنموت فيه 🔥😂", gradient: "linear-gradient(135deg,#00f2fe,#4facfe)" },
+        { src: "photo3.jpg", caption: "دلعوتنا اللي بنعشقها وسكر اللِمّة دي كلها 😉✨",        gradient: "linear-gradient(135deg,#f59e0b,#d97706)" },
+        { src: "photo2.jpg", caption: "اخــصـم الــدنــيـا لاجــلــهـم وع الــخــلـق لـو حـكـمـت 🦅💪",   gradient: "linear-gradient(135deg,#10b981,#059669)" }
+      ],
+
+      songFile: "song.mp3", /* تم تعديل مسار الأغنية أيضاً */
+      songVolume: 0.6,
+
+      /* نص الرسالة السرية الكبيرة */
+      letterMessage: "يا أحلى إخوات في الدنيا، الموقع ده معمول عشان يفضل شاهد على لمتنا وجدعنتنا سوا.. ربنا يخلينا لبعض دايماً وميفرقناش أبداً يا رجولة ويفضل ضهرنا مسنود ببعض طول العمر! 👑🤜🤛"
+    
+    };
+  </script>
+  <style>
+    :root {
+      --bg:      #06040f;
+      --bg2:     #0d1127;
+      --neon:    #00f2fe;
+      --neon2:   #4facfe;
+      --gold:    #f59e0b;
+      --card:    rgba(13, 17, 39, 0.6);
+      --border:  rgba(0, 242, 254, 0.25);
+      --white:   #f5f5f5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(145deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed; inset: 0;
+      pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .star-particle {
+      position: absolute; bottom: -60px;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(.5) rotate(0deg); opacity:0; }
+      10%  { opacity: .7; }
+      90%  { opacity: .7; }
+      100% { transform: translateY(-110vh) scale(1.3) rotate(180deg); opacity:0; }
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 100vh; width: 100%;
+      max-width: 420px; margin: 0 auto;
+      padding: 24px; animation: fadeIn .5s ease;
+    }
+    .page.active { display: flex; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+
+    #page-main {
+      justify-content: flex-start;
+      padding-bottom: 120px;
+      overflow-y: auto;
+    }
+
+    #loading-ring { position: relative; width:130px; height:130px; margin-bottom:28px; }
+    #loading-ring svg { width:100%; height:100%; animation: spinRing 1.5s linear infinite; }
+    #ring-track { stroke: rgba(255,255,255,.08); }
+    #ring-fill  { stroke: var(--neon); stroke-linecap: round;
+                  stroke-dasharray: 377; stroke-dashoffset: 180; }
+                  
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #center-icon {
+      position:absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      font-size: 44px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{transform:translate(-50%,-50%) scale(1); filter: drop-shadow(0 0 5px var(--neon));}
+      50%    {transform:translate(-50%,-50%) scale(1.15); filter: drop-shadow(0 0 15px var(--neon));}
+    }
+    .loading-dots { display:flex; gap:8px; margin-top:16px; }
+    .dot {
+      width:12px; height:12px; border-radius:50%; background:var(--neon);
+      animation: bounce .6s ease-in-out infinite;
+    }
+    .dot:nth-child(2){animation-delay:.2s}
+    .dot:nth-child(3){animation-delay:.4s}
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+    }
+
+    .avatar {
+      width:88px; height:88px; border-radius:50%;
+      background: var(--card); border: 3px solid rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
+      display:flex; align-items:center; justify-content:center;
+      font-size:40px; margin-bottom:14px;
+    }
+
+    input[type=password] {
+      width:100%; padding:14px 18px;
+      background:rgba(6, 4, 15, 0.8); border:1.5px solid rgba(0, 242, 254, 0.35);
+      border-radius:14px; color:#fff; font-family:'Cairo',sans-serif;
+      font-size:16px; text-align:center; outline:none;
+      transition:border .3s, box-shadow .3s;
+    }
+    input:focus { border-color:var(--neon); box-shadow:0 0 15px rgba(0, 242, 254, 0.4); }
+    input.error  { border-color:#ff3333; box-shadow:0 0 14px rgba(255,0,0,.35);
+                   animation: shake .45s both; }
+    @keyframes shake {
+      10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(3px)}
+      30%,50%,70%{transform:translateX(-5px)} 40%,60%{transform:translateX(5px)}
+    }
+
+    .btn-main {
+      width:100%; padding:14px;
+      background:linear-gradient(135deg, var(--neon), var(--neon2));
+      border:none; border-radius:14px; color:#fff;
+      font-family:'Cairo',sans-serif; font-size:17px; font-weight:700;
+      cursor:pointer; box-shadow:0 0 18px rgba(0, 242, 254, 0.3);
+      transition:transform .15s,box-shadow .2s;
+    }
+    .btn-main:hover  { transform:scale(1.03); box-shadow:0 0 28px rgba(0, 242, 254, 0.5); }
+    .btn-main:active { transform:scale(.97); }
+
+    .counter-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:10px; width:100%; direction:ltr;
+    }
+    .counter-box {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:14px; padding:12px 6px;
+      display:flex; flex-direction:column; align-items:center;
+      box-shadow: inset 0 0 10px rgba(0,242,254,0.05);
+    }
+    .counter-num { font-size:26px; font-weight:800; color:var(--gold); text-shadow: 0 0 10px rgba(245,158,11,0.3); }
+    .counter-lbl { font-size:11px; color:var(--neon); margin-top:4px; }
+
+    .love-card {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px; cursor:pointer;
+      transition:background .25s, box-shadow .25s;
+    }
+    .love-card:hover { background:rgba(0, 242, 254, 0.08); border-color: var(--neon); }
+    .love-card .msg-text { font-size:17px; font-weight:700; }
+    .hidden-msg {
+      display:none; text-align:center; padding:12px 0 4px;
+      border-top:1px solid rgba(0, 242, 254, 0.2); color:var(--gold); font-weight:600;
+    }
+    .hidden-msg.visible { display:block; animation:fadeIn .4s ease; }
+
+    .quiz-grid {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:14px; width:100%;
+    }
+    .quiz-card {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:22px 10px; gap:10px; cursor:pointer; min-height:130px;
+      transition: border .25s, box-shadow .25s;
+    }
+    .quiz-card .quiz-heart { font-size:22px; opacity:.5; transition:opacity .25s; }
+    .quiz-card .quiz-label { font-weight:700; font-size:15px; text-align:center; }
+    .quiz-card .quiz-reply {
+      display:none; font-size:12px; color:var(--neon); text-align:center; margin-top:4px;
+    }
+    .quiz-card.selected { border-color:var(--neon) !important; box-shadow:0 0 22px rgba(0,242,254,0.3); }
+    .quiz-card.selected .quiz-heart { opacity:1; }
+    .quiz-card.selected .quiz-reply { display:block; animation:fadeIn .35s ease; }
+
+    .photo-frame {
+      width:100%; aspect-ratio:4/3; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .photo-placeholder-icon { font-size:48px; opacity:.6; }
+
+    #modal-overlay {
+      display:none; position:fixed; inset:0; z-index:100;
+      background:rgba(0,0,0,.8); backdrop-filter:blur(6px);
+      align-items:center; justify-content:center;
+    }
+    #modal-overlay.open { display:flex; animation:fadeIn .3s ease; }
+    #modal-box {
+      width:90vw; max-width:360px; padding:36px 28px;
+      display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px;
+      border-color: var(--gold); box-shadow: 0 0 30px rgba(245,158,11,0.2);
+    }
+    .modal-icon {
+      width:64px; height:64px; border-radius:50%;
+      background:rgba(6,4,15,.8); border:1px solid var(--gold);
+      box-shadow:0 0 20px rgba(245,158,11,.3);
+      display:flex; align-items:center; justify-content:center; font-size:28px;
+    }
+    .btn-close {
+      margin-top:8px; padding:10px 28px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+      border-radius:99px; color:#fff; font-family:'Cairo',sans-serif;
+      font-size:15px; cursor:pointer; transition:background .2s;
+    }
+    .btn-close:hover { background:rgba(255,255,255,.15); }
+
+    #btn-letter {
+      position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+      z-index:50; padding:14px 32px; border-radius:99px;
+      display:flex; align-items:center; gap:10px;
+      font-size:17px; font-weight:700;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      box-shadow:0 10px 30px rgba(245,158,11,0.35);
+      border: none;
+    }
+
+    section { width:100%; margin-bottom:40px; }
+    .section-title {
+      text-align:center; font-size:18px; font-weight:800;
+      margin-bottom:18px; color: var(--white);
+    }
+    .pill {
+      display:inline-block; padding:8px 22px;
+      background:var(--card); border:1px solid var(--border); border-radius:99px;
+      color: var(--neon); font-weight: 700;
+    }
+    .date-pill {
+      display:flex; align-items:center; gap:8px;
+      background:rgba(6,4,15,.7); border:1px solid rgba(0, 242, 254, 0.15);
+      border-radius:99px; padding:8px 20px; font-family:monospace; font-size:15px;
+      margin:12px auto;
+    }
+
+    #music-btn {
+      position:fixed; top:14px; left:14px; z-index:200;
+      width:42px; height:42px; border-radius:50%;
+      background:rgba(13, 17, 39, 0.85); border:1px solid var(--neon);
+      color:var(--neon); font-size:18px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:box-shadow .2s;
+    }
+    #music-btn:hover { box-shadow:0 0 14px var(--neon); }
+
+    .divider { height:1px; background:rgba(0, 242, 254, 0.1); margin:8px 0 24px; }
+  </style>
+</head>
+<body>
+
+<div id="particles-bg"></div>
+
+<button id="music-btn" title="تشغيل/إيقاف الأغنية">🎵</button>
+<audio id="bg-audio" loop></audio>
+
+<div id="modal-overlay">
+  <div id="modal-box" class="glass">
+    <div class="modal-icon">👑</div>
+    <h2 id="modal-name" style="font-size:24px;font-weight:800;color:var(--gold);"></h2>
+    <p id="modal-msg" style="font-size:16px;line-height:1.8;color:rgba(255,255,255,.9)"></p>
+    <button class="btn-close" onclick="closeModal()">قفل الرسالة 🤜</button>
+  </div>
+</div>
+
+<div class="page active" id="page-loading">
+  <div id="loading-ring">
+    <svg viewBox="0 0 128 128">
+      <circle id="ring-track" cx="64" cy="64" r="60" fill="none" stroke-width="5"/>
+      <circle id="ring-fill"  cx="64" cy="64" r="60" fill="none" stroke-width="5"/>
+    </svg>
+    <div id="center-icon">⚡</div>
+  </div>
+  <h1 style="font-size:20px;font-weight:700;margin-bottom:12px;color:var(--neon)">جاري تجميع العصابة... 🔥</h1>
+  <div class="loading-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<div class="page" id="page-password">
+  <div class="avatar">👑</div>
+  <h1 id="locked-title"  style="font-size:28px;font-weight:800;margin-bottom:10px;color:var(--gold)"></h1>
+  <p  id="locked-subtitle" style="text-align:center;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:32px;padding:0 8px"></p>
+
+  <div style="width:100%;display:flex;flex-direction:column;gap:16px">
+    <input id="pwd-input" type="password" placeholder="اكتب الباسورد السري هنا" />
+    <button class="btn-main" id="unlock-btn"></button>
+  </div>
+</div>
+
+<div class="page" id="page-main">
+
+  <header style="display:flex;flex-direction:column;align-items:center;margin:24px 0 36px">
+    <div class="avatar" style="width:68px;height:68px;font-size:30px">🦅</div>
+    <h2 id="header-name" style="font-size:18px;font-weight:800;color:var(--neon)"></h2>
+  </header>
+
+  <section>
+    <div style="text-align:center;margin-bottom:14px">
+      <span class="pill" id="anniversary-label"></span>
+    </div>
+    <div class="date-pill" style="width:fit-content;margin:0 auto 22px;color:var(--gold)">
+      <span>📅</span>
+      <span id="ann-date"></span>
+    </div>
+    <div class="counter-grid" id="counter-grid"></div>
+    <p id="ann-msg" style="text-align:center;margin-top:18px;font-weight:600;color:rgba(255,255,255,.85)"></p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="section-title">شعارنا في الحياة ⚡</div>
+
+    <div class="glass love-card" style="margin-bottom:12px">
+      <span>👑</span>
+      <span class="msg-text" id="love-msg1"></span>
+      <span>👑</span>
+    </div>
+
+    <div class="glass love-card" style="margin-bottom:12px">
+      <span>🔥</span>
+      <span class="msg-text" id="love-msg2"></span>
+      <span>🔥</span>
+    </div>
+
+    <div class="glass" style="padding:16px 20px;cursor:pointer;margin-bottom:4px" onclick="toggleLockMsg(this)">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span id="lock-icon">🔒</span>
+        <span class="msg-text" id="love-msg3"></span>
+        <span id="lock-icon2">🔒</span>
+      </div>
+      <div class="hidden-msg" id="love-msg3-hidden"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="section-title" id="quiz-title" style="color:var(--gold)"></div>
+    <div class="quiz-grid" id="quiz-grid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="section-title">ذكرياتنا وصورنا الحلوة 📸</div>
+    <div id="photos-container" style="display:flex;flex-direction:column;gap:20px"></div>
+  </section>
+
+  <button class="btn-main glass" id="btn-letter" onclick="openModal()">
+    <span>💌</span> رسالة سريّة لإخواتي
+  </button>
+
+</div>
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) targetPage.classList.add('active');
+}
+
+(function buildParticles() {
+  const container = document.getElementById('particles-bg');
+  for (let i = 0; i < 25; i++) {
+    const el = document.createElement('div');
+    el.className = 'star-particle';
+    const size = Math.random() * 6 + 4;
+    const color = Math.random() > .5 ? '#00f2fe' : '#f59e0b';
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.background = color;
+    el.style.borderRadius = '50%';
+    el.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+    el.style.left     = Math.random() * 100 + '%';
+    el.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    el.style.animationDelay   = (Math.random() * 5) + 's';
+    container.appendChild(el);
+  }
+})();
+
+(function setupAudio() {
+  const audio   = document.getElementById('bg-audio');
+  const btn     = document.getElementById('music-btn');
+  audio.src     = CONFIG.songFile;
+  audio.volume  = CONFIG.songVolume;
+  let playing   = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) { audio.pause(); btn.textContent = '🎵'; playing = false; }
+    else         { audio.play().catch(()=>{}); btn.textContent = '⏸'; playing = true; }
+  });
+
+  document.addEventListener('click', function autoplay() {
+    if (!playing) { audio.play().then(()=>{ btn.textContent='⏸'; playing=true; }).catch(()=>{}); }
+    document.removeEventListener('click', autoplay);
+  }, { once: true });
+})();
+
+document.getElementById('locked-title').textContent   = CONFIG.lockedTitle;
+document.getElementById('locked-subtitle').textContent = CONFIG.lockedSubtitle;
+document.getElementById('unlock-btn').textContent      = CONFIG.unlockButton;
+
+function tryUnlock() {
+  const input = document.getElementById('pwd-input');
+  if (input.value.toLowerCase() === CONFIG.password.toLowerCase()) {
+    showPage('page-main');
+  } else {
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 550);
+  }
+}
+document.getElementById('unlock-btn').addEventListener('click', tryUnlock);
+document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key==='Enter') tryUnlock(); });
+
+document.getElementById('header-name').textContent       = CONFIG.partnerName;
+document.getElementById('anniversary-label').textContent = CONFIG.anniversaryLabel;
+document.getElementById('ann-date').textContent          = CONFIG.anniversaryDate;
+document.getElementById('ann-msg').textContent           = CONFIG.anniversaryMessage;
+document.getElementById('love-msg1').textContent         = CONFIG.loveMsg1;
+document.getElementById('love-msg2').textContent         = CONFIG.loveMsg2;
+document.getElementById('love-msg3').textContent         = CONFIG.loveMsg3;
+document.getElementById('love-msg3-hidden').textContent  = CONFIG.loveMsg3Hidden;
+document.getElementById('quiz-title').textContent        = CONFIG.quizTitle;
+document.getElementById('modal-name').textContent        = "من أخوكم السند 🤜🤛";
+document.getElementById('modal-msg').textContent         = CONFIG.letterMessage;
+
+(function buildQuiz() {
+  const grid = document.getElementById('quiz-grid');
+  CONFIG.quizOptions.forEach((opt, i) => {
+    const card = document.createElement('div');
+    card.className = 'glass quiz-card';
+    card.innerHTML = `<div class="quiz-heart">⚡</div>
+                      <div class="quiz-label">${opt.text}</div>
+                      <div class="quiz-reply">${opt.reply}</div>`;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.quiz-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+    grid.appendChild(card);
+  });
+})();
+
+(function buildPhotos() {
+  const container = document.getElementById('photos-container');
+  CONFIG.photos.forEach(photo => {
+    const wrap = document.createElement('div');
+    wrap.className = 'glass';
+    wrap.style.padding = '12px';
+    wrap.style.borderColor = 'rgba(0, 242, 254, 0.15)';
+
+    if (photo.src) {
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.style.width = '100%';
+      img.style.height = 'auto';
+      img.style.borderRadius = '20px'; 
+      img.style.display = 'block';
+      wrap.appendChild(img);
+    } else {
+      const frame = document.createElement('div');
+      frame.className = 'photo-frame';
+      frame.style.background = photo.gradient;
+      frame.innerHTML = `<div class="photo-placeholder-icon">📸</div>`;
+      wrap.appendChild(frame);
+    }
+
+    if (photo.caption) {
+      const p = document.createElement('p');
+      p.style.textAlign = 'center';
+      p.style.marginTop = '10px';
+      p.style.fontSize = '14px';
+      p.style.color = 'rgba(255,255,255,0.85)';
+      p.textContent = photo.caption;
+      wrap.appendChild(p);
+    }
+
+    container.appendChild(wrap);
+  });
+})();
+
+function updateCounter() {
+  const start = new Date(CONFIG.anniversaryDate);
+  const now = new Date();
+  const diff = now - start;
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+  const grid = document.getElementById('counter-grid');
+  if(grid) {
+    grid.innerHTML = `
+      <div class="counter-box">
+        <span class="counter-num">${days}</span>
+        <span class="counter-lbl">يوم</span>
+      </div>
+      <div class="counter-box">
+        <span class="counter-num">${hours}</span>
+        <span class="counter-lbl">ساعة</span>
+      </div>
+      <div class="counter-box">
+        <span class="counter-num">${minutes}</span>
+        <span class="counter-lbl">دقيقة</span>
+      </div>
+    `;
+  }
+}
+updateCounter();
+setInterval(updateCounter, 60000);
+
+function toggleLockMsg(element) {
+  const hidden = element.querySelector('.hidden-msg');
+  const icon1 = document.getElementById('lock-icon');
+  const icon2 = document.getElementById('lock-icon2');
+  if(hidden.classList.contains('visible')) {
+    hidden.classList.remove('visible');
+    icon1.textContent = '🔒';
+    icon2.textContent = '🔒';
+  } else {
+    hidden.classList.add('visible');
+    icon1.textContent = '🔓';
+    icon2.textContent = '🔓';
+  }
+}
+
+function openModal() { document.getElementById('modal-overlay').classList.add('open'); }
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    showPage('page-password');
+  }, 2000); 
+});
+</script>
+
+</body>
+</html>
