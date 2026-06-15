@@ -44,7 +44,8 @@
       photos: [
         { src: "photo1.jpg", caption: "رئيس عصابة المشاكل والمشاغب اللي بنموت فيه 🔥😂", gradient: "linear-gradient(135deg,#00f2fe,#4facfe)" },
         { src: "photo3.jpg", caption: "دلعوتنا اللي بنعشقها وسكر اللِمّة دي كلها 😉✨",        gradient: "linear-gradient(135deg,#f59e0b,#d97706)" },
-        { src: "photo2.jpg", caption: "اخــصـم الــدنــيـا لاجــلــهـم وع الــخــلـق لـو حـكـمـت 🦅💪",   gradient: "linear-gradient(135deg,#10b981,#059669)" }
+        { src: "photo2.jpg", caption: "اخــصـم الــدنــيـا لاجــلــهـم وع الــخــلـق لـو حـكـمـت 🦅💪",   gradient: "linear-gradient(135deg,#10b981,#059669)" },
+        { src: "photo4.jpg", caption: "ا احسن وحده تجمعنا واكتر حد بنحبو عمتا المفضلين عندي ربنا يخليكو لبعض👑🔥", gradient: "linear-gradient(135deg,#ff007f,#7f00ff)" }
       ],
 
       songFile: "song.mp3", /* تم تعديل مسار الأغنية أيضاً */
@@ -294,6 +295,18 @@
     #music-btn:hover { box-shadow:0 0 14px var(--neon); }
 
     .divider { height:1px; background:rgba(0, 242, 254, 0.1); margin:8px 0 24px; }
+
+    /* تأثير الخلفية الفخمة المدمجة بدون تعديل أي عنصر قديم */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1470&auto=format&fit=crop') center/cover no-repeat;
+      opacity: 0.12;
+      z-index: -1;
+      pointer-events: none;
+      filter: grayscale(20%) contrast(110%);
+    }
   </style>
 </head>
 <body>
@@ -485,106 +498,4 @@ document.getElementById('modal-msg').textContent         = CONFIG.letterMessage;
     card.innerHTML = `<div class="quiz-heart">⚡</div>
                       <div class="quiz-label">${opt.text}</div>
                       <div class="quiz-reply">${opt.reply}</div>`;
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.quiz-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-    });
-    grid.appendChild(card);
-  });
-})();
-
-(function buildPhotos() {
-  const container = document.getElementById('photos-container');
-  CONFIG.photos.forEach(photo => {
-    const wrap = document.createElement('div');
-    wrap.className = 'glass';
-    wrap.style.padding = '12px';
-    wrap.style.borderColor = 'rgba(0, 242, 254, 0.15)';
-
-    if (photo.src) {
-      const img = document.createElement('img');
-      img.src = photo.src;
-      img.style.width = '100%';
-      img.style.height = 'auto';
-      img.style.borderRadius = '20px'; 
-      img.style.display = 'block';
-      wrap.appendChild(img);
-    } else {
-      const frame = document.createElement('div');
-      frame.className = 'photo-frame';
-      frame.style.background = photo.gradient;
-      frame.innerHTML = `<div class="photo-placeholder-icon">📸</div>`;
-      wrap.appendChild(frame);
-    }
-
-    if (photo.caption) {
-      const p = document.createElement('p');
-      p.style.textAlign = 'center';
-      p.style.marginTop = '10px';
-      p.style.fontSize = '14px';
-      p.style.color = 'rgba(255,255,255,0.85)';
-      p.textContent = photo.caption;
-      wrap.appendChild(p);
-    }
-
-    container.appendChild(wrap);
-  });
-})();
-
-function updateCounter() {
-  const start = new Date(CONFIG.anniversaryDate);
-  const now = new Date();
-  const diff = now - start;
-  
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-  const grid = document.getElementById('counter-grid');
-  if(grid) {
-    grid.innerHTML = `
-      <div class="counter-box">
-        <span class="counter-num">${days}</span>
-        <span class="counter-lbl">يوم</span>
-      </div>
-      <div class="counter-box">
-        <span class="counter-num">${hours}</span>
-        <span class="counter-lbl">ساعة</span>
-      </div>
-      <div class="counter-box">
-        <span class="counter-num">${minutes}</span>
-        <span class="counter-lbl">دقيقة</span>
-      </div>
-    `;
-  }
-}
-updateCounter();
-setInterval(updateCounter, 60000);
-
-function toggleLockMsg(element) {
-  const hidden = element.querySelector('.hidden-msg');
-  const icon1 = document.getElementById('lock-icon');
-  const icon2 = document.getElementById('lock-icon2');
-  if(hidden.classList.contains('visible')) {
-    hidden.classList.remove('visible');
-    icon1.textContent = '🔒';
-    icon2.textContent = '🔒';
-  } else {
-    hidden.classList.add('visible');
-    icon1.textContent = '🔓';
-    icon2.textContent = '🔓';
-  }
-}
-
-function openModal() { document.getElementById('modal-overlay').classList.add('open'); }
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    showPage('page-password');
-  }, 2000); 
-});
-</script>
-
-</body>
-</html>
+    card.a  
